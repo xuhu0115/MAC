@@ -1,11 +1,6 @@
 # main.py
 
-from task_executor import TaskExecutor
-from logger import Logger
-
-# main.py
-
-from task_executor import TaskExecutor
+from task_executor_ch_p import TaskExecutor
 from logger import Logger
 from data_loader import DataLoader
 from datetime import datetime

@@ -75,7 +75,16 @@ class TaskExecutor:
         :param model_type: 模型类型 ("gpt4", "deepseek", "qwen2.5")
         :return: 智能体列表
         """
-        return [Agent(random.choice(personalities), self.model_type, self.api_keys) for _ in range(agents_per_round)]
+        #return [Agent(random.choice(personalities), self.model_type, self.api_keys) for _ in range(agents_per_round)]
+        agents = []
+        personalities_agents = []
+        for _ in range(agents_per_round):
+            personality = random.choice(personalities)
+            agent = Agent(personality, self.model_type, self.api_keys)
+            agents.append(agent)
+            personalities_agents.append(personality)
+
+        return agents,personalities_agents
 
     def _generate_outputs(self, agents, prompt):
         """
@@ -90,17 +99,19 @@ class TaskExecutor:
         results = []
         for prompt in inputs:
             model_type = TASK_MODEL_MAPPING.get(self.task_type)
-            agents = self._create_agents(personalities, agents_per_round)
+            agents, personalities_agents = self._create_agents(personalities, agents_per_round)
             outputs = self._generate_outputs(agents, prompt)
 
             # 每个智能体的输出和其他智能体的输出
             for idx, output in enumerate(outputs):
                 other_responses = outputs[:idx] + outputs[idx+1:]
                 results.append({
+                    "question":self.data["inputs"][idx],
                     "input": prompt,
                     "output": output,
                     "other_responses": other_responses,
-                    "agent_number":idx
+                    "agent_number":idx,
+                    "personalities":personalities_agents[idx]
                 })
         return results
 
@@ -113,6 +124,7 @@ class TaskExecutor:
         """
         final_results = []
         questions = self._group_by_question(last_round_results)
+        print("questions:",questions)
 
         for question_idx, question_data in enumerate(questions):
             # 准备总结的提示，包含该问题的所有上一轮答案
@@ -122,12 +134,15 @@ class TaskExecutor:
             summary_prompt += "请输出最终答案，并严格按照以下格式：{最终答案:, 解释:}"
 
             # 只使用一个智能体进行总结
-            agent = Agent(random.choice(personalities), self.model_type, self.api_keys)
+            personality = random.choice(personalities)
+            agent = Agent(personality, self.model_type, self.api_keys)
             final_output = agent.generate(summary_prompt)
 
             # 保存最终输出
             final_results.append({
+                "question":self.data["inputs"][question_idx],
                 "input": question_data["input"],
+                "personality":personality,
                 "final_output": final_output
             })
 
