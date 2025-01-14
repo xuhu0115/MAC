@@ -6,6 +6,7 @@ from config import MBTI_TYPES, EXPERIMENT_CONFIG, TASK_MODEL_MAPPING
 from dotenv import load_dotenv, find_dotenv
 import random
 import os
+from typing import List
 
 _ = load_dotenv(find_dotenv())
     
@@ -46,6 +47,7 @@ class TaskExecutor:
             else:
                 personalities = MBTI_TYPES["open_personalities"] if self.task_type == "open_task" else MBTI_TYPES["complex_personalities"]
                 # 每轮生成
+                print("inputs:",inputs)
                 round_results = self._run_round(inputs, personalities, agents_per_round)
                 results.append(round_results)
 
@@ -67,26 +69,26 @@ class TaskExecutor:
 
         return results
     
-    def _create_agents(self, personalities, agents_per_round):
+    def _select_personality(self, personalities, agents_per_round):
         """
-        创建智能体列表
+        随机选择指定数量的人格类型
+        :param personalities: 可选人格类型列表
+        :param agents_per_round: 每轮需要的智能体数量
+        :return: 随机选择的人格列表
+        """
+        return random.choices(personalities, k=agents_per_round)
+    
+    def _create_agents(self, selected_personalities, agents_per_round):
+        """
+        创建智能体列表，并记录对应的人格
         :param personalities: 当前轮次使用的人格类型
         :param agents_per_round: 每轮智能体数量
-        :param model_type: 模型类型 ("gpt4", "deepseek", "qwen2.5")
-        :return: 智能体列表
+        :return: 智能体列表和对应的人格
         """
-        #return [Agent(random.choice(personalities), self.model_type, self.api_keys) for _ in range(agents_per_round)]
-        agents = []
-        personalities_agents = []
-        for _ in range(agents_per_round):
-            personality = random.choice(personalities)
-            agent = Agent(personality, self.model_type, self.api_keys)
-            agents.append(agent)
-            personalities_agents.append(personality)
+        agents = [Agent(personality, self.model_type, self.api_keys) for personality in selected_personalities]
+        return agents
 
-        return agents,personalities_agents
-
-    def _generate_outputs(self, agents, prompt):
+    def _generate_outputs(self, agents: List[Agent], prompt: str) -> List[str]:
         """
         让智能体生成输出
         :param agents: 智能体列表
@@ -96,53 +98,67 @@ class TaskExecutor:
         return [agent.generate(prompt) for agent in agents]
 
     def _run_round(self, inputs, personalities, agents_per_round):
+        """
+        执行一轮生成任务
+        """
         results = []
-        for prompt in inputs:
-            model_type = TASK_MODEL_MAPPING.get(self.task_type)
-            agents, personalities_agents = self._create_agents(personalities, agents_per_round)
+        cached_personalities = self._select_personality(personalities, agents_per_round)  # 缓存随机选择结果
+        agents = self._create_agents(cached_personalities, agents_per_round)
+
+        for idx, prompt in enumerate(inputs):
+            # print("idex:",idx)
+            # print("prompt:",prompt)
             outputs = self._generate_outputs(agents, prompt)
 
             # 每个智能体的输出和其他智能体的输出
-            for idx, output in enumerate(outputs):
-                other_responses = outputs[:idx] + outputs[idx+1:]
+            for agent_idx, output in enumerate(outputs):
+                other_responses = outputs[:agent_idx] + outputs[agent_idx+1:]
                 results.append({
-                    "question":self.data["inputs"][idx],
-                    "input": prompt,
+                    "question": self.data["inputs"][agent_idx],  # 修正为原始输入的上半句
+                    "input": prompt,  # 完整的 prompt
                     "output": output,
                     "other_responses": other_responses,
-                    "agent_number":idx,
-                    "personalities":personalities_agents[idx]
+                    "agent_number": agent_idx,
+                    "personalities": cached_personalities[agent_idx]  # 使用缓存的人格
                 })
+                
         return results
 
     def _run_final_round(self, last_round_results, personalities):
         """
         执行最后一轮任务，对每个问题的多个答案进行总结并决定最优答案
-        :param last_round_results: 上一轮的生成结果
-        :param personalities: 最后一轮使用的人格类型
-        :return: 每个问题的最终总结结果
         """
         final_results = []
         questions = self._group_by_question(last_round_results)
-        print("questions:",questions)
 
         for question_idx, question_data in enumerate(questions):
-            # 准备总结的提示，包含该问题的所有上一轮答案
-            summary_prompt = f"问题{question_idx + 1}：{question_data['input']}\n以下是多个智能体对该问题的回答，请总结并决定一个最优答案，并解释原因。\n"
+            question = self.data["inputs"][question_idx]
+            # 使用 f-string 构造提示
+            summary_prompt = (
+            f"上半句：{question}\n"
+            "以下是多个智能体针对上半句给出的创作回答，请对它们进行总结、分析，并选择一个最优答案。"
+            "在决定最优答案时，请综合考虑以下因素：\n"
+            "1. **意境深远**：句子的情感表达和画面感是否出色，是否能引发读者共鸣。\n"
+            "2. **语言优美**：用词是否典雅，句式是否符合古诗词的文风。\n"
+            "3. **韵律和谐**：平仄和押韵是否合理，是否与上一句保持一致。\n"
+            "4. **创新与逻辑**：句子的创意性是否突出，且是否与上一句意境连贯。\n\n"
+        )
             for idx, response in enumerate(question_data["responses"]):
-                summary_prompt += f"智能体{idx + 1}的回答：{response}\n"
-            summary_prompt += "请输出最终答案，并严格按照以下格式：{最终答案:, 解释:}"
+                summary_prompt += f"智能体 {idx + 1} 的回答：{response}\n"
+            summary_prompt += (
+                "\n请根据以上分析，选择一个句子作为最终答案，并解释选择的理由。\n"
+                "请严格按照以下格式输出：\n"
+                "{最终答案: , 解释: }"
+            )
 
-            # 只使用一个智能体进行总结
             personality = random.choice(personalities)
             agent = Agent(personality, self.model_type, self.api_keys)
             final_output = agent.generate(summary_prompt)
 
-            # 保存最终输出
             final_results.append({
-                "question":self.data["inputs"][question_idx],
-                "input": question_data["input"],
-                "personality":personality,
+                "question": question,
+                "input": summary_prompt,
+                "personality": personality,
                 "final_output": final_output
             })
 
