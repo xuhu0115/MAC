@@ -42,7 +42,7 @@ class TaskExecutor:
 
         for round_num in range(rounds):
             print(f"-------------------------Round {round_num + 1}/{rounds}--------------------------")
-            print("inputs:",inputs)
+            # print("inputs:",inputs)
             if round_num == rounds - 1:
                 # 最后一轮：使用单个智能体总结并选择最佳答案
                 final_result = self._run_final_round(results[-1], final_round_personalities)
@@ -71,12 +71,15 @@ class TaskExecutor:
     
     def _select_personality(self, personalities, agents_per_round):
         """
-        随机选择指定数量的人格类型
+        随机选择指定数量的人格类型，避免重复选择
         :param personalities: 可选人格类型列表
         :param agents_per_round: 每轮需要的智能体数量
         :return: 随机选择的人格列表
         """
-        return random.choices(personalities, k=agents_per_round)
+        if len(personalities) >= agents_per_round:
+            return random.sample(personalities, agents_per_round)
+        else:
+            return random.choices(personalities, k=agents_per_round)
     
     def _create_agents(self, personalities, agents_per_round):
         """

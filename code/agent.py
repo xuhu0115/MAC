@@ -78,8 +78,8 @@ class Agent:
             response = client.chat.completions.create(
             model = "deepseek-chat", #engine=self.llm_params.get("model", "text-davinci-003") 是 Python 中的一种常见用法，它的作用是从字典 self.llm_params 中获取键 "model" 对应的值。如果 "model" 这个键不存在，则使用默认值 "text-davinci-003"。
             messages=[
-                {"role": "system", "content": "You are a helpful assistant"},
-                {"role": "user", "content": self._add_personality_context(prompt)},
+                {"role": "system", "content": self._add_personality_context()},
+                {"role": "user", "content": prompt},
             ],
             max_tokens = max_tokens,
             temperature = temperature,
@@ -103,7 +103,7 @@ class Agent:
             print(f"Error generating response from Qwen-2.5: {e}")
             return None
 
-    def _add_personality_context(self, prompt):
+    def _add_personality_context(self):
         """
         根据人格类型调整生成提示
         :param prompt: 原始提示
@@ -112,7 +112,18 @@ class Agent:
         with open("config/mbti_prompts.json", "r", encoding="utf-8") as f:
             personality_prompts = json.load(f)
         personality_context = personality_prompts.get(self.personality, "")
-        return f"{personality_context}\nTask Description: {prompt}"
+        return personality_context
+
+    # def _add_personality_context(self, prompt):
+    #     """
+    #     根据人格类型调整生成提示
+    #     :param prompt: 原始提示
+    #     :return: 添加人格上下文后的提示
+    #     """
+    #     with open("config/mbti_prompts.json", "r", encoding="utf-8") as f:
+    #         personality_prompts = json.load(f)
+    #     personality_context = personality_prompts.get(self.personality, "")
+    #     return f"{personality_context}\nTask Description: {prompt}"
 
 
 # # 测试智能体模块
