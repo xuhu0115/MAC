@@ -31,29 +31,29 @@ class TaskExecutor:
         """
         rounds = self.config["rounds"]
         agents_per_round = self.config["agents_per_round"]
-        final_round_personality = self.config["final_round_personalities"]
+        final_round_personalities = self.config["final_round_personalities"]
 
-        inputs = self._prepare_initial_prompts()
+        # 第 0 轮：初始化智能体
+        personalities = MBTI_TYPES["open_personalities"] if self.task_type == "open_task" else MBTI_TYPES["complex_personalities"]
+        agents, cached_personalities = self._create_agents(personalities, agents_per_round)
+
+        inputs = self._prepare_initial_prompts()  # 初始问题列表 (原始问题, prompt)
         results = []
 
         for round_num in range(rounds):
             print(f"-------------------------Round {round_num + 1}/{rounds}--------------------------")
-
-            # 确定本轮使用的人格
+            print("inputs:",inputs)
             if round_num == rounds - 1:
                 # 最后一轮：使用单个智能体总结并选择最佳答案
-                final_result = self._run_final_round(results[-1], final_round_personality)
+                final_result = self._run_final_round(results[-1], final_round_personalities)
                 results.append(final_result)
             else:
-                personalities = MBTI_TYPES["open_personalities"] if self.task_type == "open_task" else MBTI_TYPES["complex_personalities"]
-                # 每轮生成
-                print("inputs:",inputs)
-                round_results = self._run_round(inputs, personalities, agents_per_round)
+                # 第 0 轮到第 rounds-2 轮
+                round_results = self._run_round(inputs, agents, cached_personalities)
                 results.append(round_results)
 
-                # 更新下一轮的输入
                 inputs = [
-                    (
+                    (   result["question"],  # 保留原始问题
                         "你的任务是创作优美的中国古诗词。以下是你之前的回答以及其他智能体的回答，请你结合它们的内容，重新思考并创作出更加精妙的下一句。"
                         "\n\n**要求如下：**\n"
                         "1. **综合参考**：结合你自己的回答和其他智能体的回答，从中汲取优点，避免重复或简单拼接，做到在内容上融合创造。\n"
@@ -61,10 +61,10 @@ class TaskExecutor:
                         "3. **提升质量**：力求语言更精炼、意境更深远、韵律更和谐，体现更高水平的文采。\n"
                         "4. **严格输出格式**：仅输出单独的一句诗，不添加其他内容（如解释或注释）。\n\n"
                         f"**你的回答：** {result['output']}\n"
-                        f"**其他智能体的回答：** {', '.join(result['other_responses'])}\n\n"
+                        f"**其他智能体的回答：**{', '.join(result['other_responses'])}\n\n"
                         "请你结合以上内容，重新创作出更高质量的下一句："
                     )
-                    for result in round_results
+                    for result in round_results if result["agent_number"] == 0  # 确保每条问题只生成一组输入
                 ]
 
         return results
@@ -78,15 +78,16 @@ class TaskExecutor:
         """
         return random.choices(personalities, k=agents_per_round)
     
-    def _create_agents(self, selected_personalities, agents_per_round):
+    def _create_agents(self, personalities, agents_per_round):
         """
         创建智能体列表，并记录对应的人格
         :param personalities: 当前轮次使用的人格类型
         :param agents_per_round: 每轮智能体数量
         :return: 智能体列表和对应的人格
         """
+        selected_personalities = self._select_personality(personalities, agents_per_round)
         agents = [Agent(personality, self.model_type, self.api_keys) for personality in selected_personalities]
-        return agents
+        return agents, selected_personalities
 
     def _generate_outputs(self, agents: List[Agent], prompt: str) -> List[str]:
         """
@@ -97,45 +98,47 @@ class TaskExecutor:
         """
         return [agent.generate(prompt) for agent in agents]
 
-    def _run_round(self, inputs, personalities, agents_per_round):
+    def _run_round(self, inputs, agents, cached_personalities):
         """
-        执行一轮生成任务
+        执行一轮任务
+        :param inputs: 当前轮次的输入
+        :param agents: 智能体列表（第 0 轮到第 rounds-2 轮复用）
+        :param cached_personalities: 智能体的人格类型列表
+        :return: 当前轮次的生成结果
         """
         results = []
-        cached_personalities = self._select_personality(personalities, agents_per_round)  # 缓存随机选择结果
-        agents = self._create_agents(cached_personalities, agents_per_round)
+        for original_question, prompt in inputs:
+            outputs = self._generate_outputs(agents, prompt)  # 每个智能体生成输出
 
-        for idx, prompt in enumerate(inputs):
-            # print("idex:",idx)
-            # print("prompt:",prompt)
-            outputs = self._generate_outputs(agents, prompt)
-
-            # 每个智能体的输出和其他智能体的输出
+            # 确保每个问题的结果只记录一次（2 个智能体的输出）
+            question_results = []
             for agent_idx, output in enumerate(outputs):
-                other_responses = outputs[:agent_idx] + outputs[agent_idx+1:]
-                results.append({
-                    "question": self.data["inputs"][agent_idx],  # 修正为原始输入的上半句
+                other_responses = outputs[:agent_idx] + outputs[agent_idx + 1:]
+                question_results.append({
+                    "question": original_question,  # 原始输入的上半句
                     "input": prompt,  # 完整的 prompt
                     "output": output,
                     "other_responses": other_responses,
                     "agent_number": agent_idx,
-                    "personalities": cached_personalities[agent_idx]  # 使用缓存的人格
+                    "personalities": cached_personalities[agent_idx]
                 })
-                
+            # 确保每个问题只生成 agents_per_round 个结果
+            results.extend(question_results[:len(agents)])
         return results
 
-    def _run_final_round(self, last_round_results, personalities):
+    def _run_final_round(self, last_round_results, final_round_personalities):
         """
         执行最后一轮任务，对每个问题的多个答案进行总结并决定最优答案
+        :param last_round_results: 上一轮的生成结果
+        :param final_round_personalities: 最后一轮使用的人格类型
+        :return: 每个问题的最终总结结果
         """
         final_results = []
-        questions = self._group_by_question(last_round_results)
-
-        for question_idx, question_data in enumerate(questions):
-            question = self.data["inputs"][question_idx]
-            # 使用 f-string 构造提示
+        grouped_results = self._group_by_question(last_round_results)
+        for question_data in grouped_results:
+            # 准备总结的提示
             summary_prompt = (
-            f"上半句：{question}\n"
+            f"上半句：{question_data['question']}\n"
             "以下是多个智能体针对上半句给出的创作回答，请对它们进行总结、分析，并选择一个最优答案。"
             "在决定最优答案时，请综合考虑以下因素：\n"
             "1. **意境深远**：句子的情感表达和画面感是否出色，是否能引发读者共鸣。\n"
@@ -143,41 +146,43 @@ class TaskExecutor:
             "3. **韵律和谐**：平仄和押韵是否合理，是否与上一句保持一致。\n"
             "4. **创新与逻辑**：句子的创意性是否突出，且是否与上一句意境连贯。\n\n"
         )
+            # 确保 question_data["results"] 是一个列表，并且每个元素是字典
             for idx, response in enumerate(question_data["responses"]):
-                summary_prompt += f"智能体 {idx + 1} 的回答：{response}\n"
+                summary_prompt += f"智能体{idx + 1}的回答：{response}\n"
             summary_prompt += (
                 "\n请根据以上分析，选择一个句子作为最终答案，并解释选择的理由。\n"
                 "请严格按照以下格式输出：\n"
                 "{最终答案: , 解释: }"
             )
 
-            personality = random.choice(personalities)
+            # 使用一个智能体进行总结
+            personality = random.choice(final_round_personalities)
             agent = Agent(personality, self.model_type, self.api_keys)
             final_output = agent.generate(summary_prompt)
 
+            # 保存最终输出
             final_results.append({
-                "question": question,
-                "input": summary_prompt,
+                "question": question_data["question"],  # 原始输入的上半句
+                "input": summary_prompt,  # 完整的 prompt
                 "personality": personality,
                 "final_output": final_output
             })
-
         return final_results
     
-    def _group_by_question(self, last_round_results):
+    def _group_by_question(self, results):
         """
-        根据问题分组上一轮的结果
-        :param last_round_results: 上一轮的生成结果
-        :return: 分组后的问题及其对应的回答
+        根据问题分组生成结果
+        :param results: 当前轮次的生成结果
+        :return: 按问题分组的结果
         """
-        grouped_results = {}
-        for result in last_round_results:
-            input_text = result["input"]
-            if input_text not in grouped_results:
-                grouped_results[input_text] = {"input": input_text, "responses": []}
-            grouped_results[input_text]["responses"].append(result["output"])
-        return list(grouped_results.values())
-        
+        grouped = {}
+        for result in results:
+            question = result["question"]
+            if question not in grouped:
+                grouped[question] = {"question": question, "responses": []}
+            grouped[question]["responses"].append(result["output"])
+        return list(grouped.values())
+
     def _prepare_initial_prompts(self):
         """
         根据任务类型生成初始 prompt
@@ -187,7 +192,7 @@ class TaskExecutor:
             # 处理诗歌生成
             if "inputs" in self.data and isinstance(self.data["inputs"][0], str):
                 return [
-                    (
+                    (   line,  # 原始问题
                         "你是一位才华横溢的古代诗人，擅长创作优美的中国古诗词。"
                         "现在，我将提供一句古诗作为开头，请你根据其意境、韵律和风格，创作出下一句，使其成为一首和谐美丽的诗句。"
                         "\n\n请注意以下要求：\n"
