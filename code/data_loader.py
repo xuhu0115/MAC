@@ -5,20 +5,37 @@ import logging
 
 class DataLoader:
     @staticmethod
-    def load_data(file_path):
+    def load_data(file_path, specific_task):
         """
-        加载 JSON 数据，并处理文件不存在或格式错误的情况
+        根据具体任务类型加载和解析数据
         :param file_path: 数据文件路径
-        :return: 数据内容
+        :param specific_task: 具体任务类型（poetry, story, nli, math）
+        :return: 解析后的数据列表
         """
         try:
-            with open(file_path, "r", encoding="utf-8") as f:
-                if file_path.endswith(".json"):
-                    return json.load(f)
-                elif file_path.endswith(".jsonl"):
-                    return [json.loads(line) for line in f]
-                else:
-                    raise ValueError("Unsupported file format. Only .json and .jsonl are supported.")
+            # 加载 JSON 或 JSONL 文件
+            if file_path.endswith(".json"):
+                with open(file_path, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+            elif file_path.endswith(".jsonl"):
+                with open(file_path, "r", encoding="utf-8") as f:
+                    data = [json.loads(line) for line in f]
+            else:
+                raise ValueError("Unsupported file format. Only .json and .jsonl are supported.")
+
+            # 根据具体任务类型解析数据
+            if specific_task == "poetry":
+                return DataLoader._process_poetry_data(data)
+            elif specific_task == "story":
+                return DataLoader._process_story_data(data)
+            elif specific_task == "nli":
+                return DataLoader._process_nli_data(data)
+            elif specific_task == "math":
+                #print("data:",data)
+                return DataLoader._process_math_data(data)
+            else:
+                raise ValueError(f"Unsupported specific task type: {specific_task}")
+
         except FileNotFoundError:
             logging.error(f"File not found: {file_path}")
             return None
@@ -28,3 +45,51 @@ class DataLoader:
         except Exception as e:
             logging.error(f"An unexpected error occurred while loading data: {e}")
             return None
+
+    @staticmethod
+    def _process_poetry_data(data):
+        """
+        处理诗歌生成的数据
+        :param data: 数据内容
+        :return: 解析后的数据列表
+        """
+        if "inputs" in data:
+            return data["inputs"]
+        else:
+            raise ValueError("Invalid data format for poetry task. Expected 'inputs' field.")
+
+    @staticmethod
+    def _process_story_data(data):
+        """
+        处理故事创作的数据
+        :param data: 数据内容
+        :return: 解析后的数据列表
+        """
+        if "inputs" in data:
+            return data["inputs"]
+        else:
+            raise ValueError("Invalid data format for story task. Expected 'inputs' field.")
+
+    @staticmethod
+    def _process_nli_data(data):
+        """
+        处理自然语言推理的数据
+        :param data: 数据内容
+        :return: 解析后的数据列表
+        """
+        if isinstance(data, list) and all("premise" in item and "hypothesis" in item for item in data):
+            return data
+        else:
+            raise ValueError("Invalid data format for NLI task.")
+
+    @staticmethod
+    def _process_math_data(data):
+        """
+        处理数学推理的数据
+        :param data: 数据内容
+        :return: 解析后的数据列表
+        """
+        if isinstance(data, list) and all("question" in item for item in data):
+            return data
+        else:
+            raise ValueError("Invalid data format for math task.")

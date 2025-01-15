@@ -14,15 +14,16 @@ if __name__ == "__main__":
     Logger.configure_logger("experiment.log")
 
     # 实验配置
-    task_type = "open_task"  # "open_task" 或 "complex_task"
+    task_type = "complex_task"  # "open_task" 或 "complex_task"
+    specific_task = "math"  # 具体任务类型：poetry, story, nli, math
     model_type = "deepseek"
-    data_path = "./data/poetry.json"  # 数据文件路径
+    data_path = "./data/GSM8K/test.jsonl"  # 数据文件路径  "./data/poetry.json"  "./data/GSM8K/test.jsonl"
     
     # API 密钥
     api_keys = os.environ.get("DEEPSEEK_API_KEY")
 
     # 执行任务
-    executor = TaskExecutor(task_type, api_keys, model_type, data_path)
+    executor = TaskExecutor(task_type, specific_task, api_keys, model_type, data_path)
     results = executor.run_task()
 
     # 保存结果
@@ -30,3 +31,9 @@ if __name__ == "__main__":
     # Logger.save_results(results, f"./outputs/{task_type}_results_{timestamp}.json")
     # 保存结果
     Logger.save_results(results)
+
+
+
+
+
+
