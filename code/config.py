@@ -1,27 +1,27 @@
 # config.py
 
-# 定义人格类型
+# Define personality types
 MBTI_TYPES = {
-    "open_personalities": ["ISFP", "INFP", "ENFP", "ESFP", "ENTP"],  # 开放型任务人格
-    "complex_personalities": ["INTJ", "INTP", "ISTJ", "ENTJ", "ESTJ"],  # 复杂型任务人格
-    "general_round_personalities": ["INFJ", "ISFJ", "ENFJ", "ENTP", "ISTP"]  # 通用人格
+    "open_personalities": ["ISFP", "INFP", "ENFP", "ESFP", "ENTP"],  # Personalities for open tasks
+    "complex_personalities": ["INTJ", "INTP", "ISTJ", "ENTJ", "ESTJ"],  # Personalities for complex tasks
+    "general_round_personalities": ["INFJ", "ISFJ", "ENFJ", "ENTP", "ISTP"]  # Generic personalities for final rounds
 }
 
-# 实验配置
+# Experiment configuration
 EXPERIMENT_CONFIG = {
     "open_task": {
-        "rounds": 3,  # 开放性任务的轮次
-        "agents_per_round": 2,  # 每轮智能体数量
-        "final_round_personalities": MBTI_TYPES["general_round_personalities"]  # 最后一轮使用的智能体人格
+        "rounds": 3,  # Total number of rounds
+        "agents_per_round": 2,  # Number of agents per round
+        "final_round_personalities": MBTI_TYPES["general_round_personalities"]  # Personalities for final round
     },
     "complex_task": {
-        "rounds": 3,  # 复杂性任务的轮次
-        "agents_per_round": 2,  # 每轮智能体数量
-        "final_round_personalities": MBTI_TYPES["general_round_personalities"]  # 最后一轮使用的智能体人格
+        "rounds": 5,  
+        "agents_per_round": 6,  
+        "final_round_personalities": MBTI_TYPES["general_round_personalities"]  
     }
 }
 
-#定义每个任务类型的默认模型
+# Mapping of task types to model types
 TASK_MODEL_MAPPING = {
     "open_task": "deepseek",
     "complex_task": "deepseek"

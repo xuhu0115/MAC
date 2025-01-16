@@ -24,9 +24,9 @@ class Logger:
     @staticmethod
     def save_results(results, filename="outputs/results.json"):
         """
-        保存实验结果到 JSON 文件
-        :param results: 实验结果
-        :param filename: 文件名
+        Save experiment results to a JSON file.
+        :param results: Results to save
+        :param filename: File path for saving the results
         """
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         filename = filename.replace(".json", f"_{timestamp}.json")

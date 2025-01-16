@@ -22,14 +22,12 @@ if __name__ == "__main__":
     # API 密钥
     api_keys = os.environ.get("DEEPSEEK_API_KEY")
 
-    # 执行任务
+    # Initialize the task executor
     executor = TaskExecutor(task_type, specific_task, api_keys, model_type, data_path)
+    # Run the task execution process
     results = executor.run_task()
 
-    # 保存结果
-    # timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    # Logger.save_results(results, f"./outputs/{task_type}_results_{timestamp}.json")
-    # 保存结果
+    # Save the results
     Logger.save_results(results)
 
 

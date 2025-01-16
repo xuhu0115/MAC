@@ -7,10 +7,10 @@ class DataLoader:
     @staticmethod
     def load_data(file_path, specific_task):
         """
-        根据具体任务类型加载和解析数据
-        :param file_path: 数据文件路径
-        :param specific_task: 具体任务类型（poetry, story, nli, math）
-        :return: 解析后的数据列表
+        Load data from a file for the specified task type.
+        :param file_path: Path to the data file
+        :param task_type: Specific task type (e.g., poetry, story, nli, math)
+        :return: Processed data
         """
         try:
             # 加载 JSON 或 JSONL 文件

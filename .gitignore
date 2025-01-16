@@ -3,6 +3,7 @@
 
 # 忽略特定文件
 .env
+experiment.log
 
 # 忽略目录（包括目录下的所有内容）
 /data/NLI
