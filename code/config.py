@@ -15,8 +15,8 @@ EXPERIMENT_CONFIG = {
         "final_round_personalities": MBTI_TYPES["general_round_personalities"]  # Personalities for final round
     },
     "complex_task": {
-        "rounds": 5,  
-        "agents_per_round": 6,  
+        "rounds": 3,  
+        "agents_per_round": 2,  
         "final_round_personalities": MBTI_TYPES["general_round_personalities"]  
     }
 }

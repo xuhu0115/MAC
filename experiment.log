@@ -678,3 +678,106 @@
 2025-01-15 19:50:06,664 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
 2025-01-15 19:50:10,295 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
 2025-01-15 19:50:10,315 [INFO] Results saved to outputs/results_20250115_195010.json
+2025-01-19 12:17:00,080 [INFO] Logger initialized.
+2025-01-19 12:17:00,657 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-01-19 12:17:02,116 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-01-19 12:17:03,829 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-01-19 12:17:05,244 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-01-19 12:17:06,992 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-01-19 12:17:08,631 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-01-19 12:17:10,265 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-01-19 12:17:11,970 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-01-19 12:17:13,581 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-01-19 12:17:15,257 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-01-19 12:17:17,021 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-01-19 12:17:18,623 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-01-19 12:17:20,359 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-01-19 12:17:24,439 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-01-19 12:17:28,417 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-01-19 12:17:31,921 [INFO] Results saved to outputs/results_20250119_121731.json
+2025-01-19 12:40:28,246 [INFO] Logger initialized.
+2025-01-19 12:40:28,924 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-01-19 12:40:30,515 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-01-19 12:40:32,101 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-01-19 12:40:34,415 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-01-19 12:40:36,028 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-01-19 12:40:39,552 [INFO] Results saved to outputs/results_20250119_124039.json
+2025-01-19 12:44:23,776 [INFO] Logger initialized.
+2025-01-19 12:44:49,773 [INFO] Logger initialized.
+2025-01-19 12:45:07,982 [INFO] Logger initialized.
+2025-01-19 12:45:31,319 [INFO] Logger initialized.
+2025-01-19 12:45:55,412 [INFO] Logger initialized.
+2025-01-19 12:46:16,583 [INFO] Logger initialized.
+2025-01-19 12:46:31,291 [INFO] Logger initialized.
+2025-01-19 12:52:09,772 [INFO] Logger initialized.
+2025-01-19 12:52:38,582 [INFO] Logger initialized.
+2025-01-19 12:52:50,516 [INFO] Logger initialized.
+2025-01-19 19:30:17,853 [INFO] Logger initialized.
+2025-01-19 19:30:32,054 [INFO] Logger initialized.
+2025-01-19 19:44:08,330 [INFO] Logger initialized.
+2025-01-19 19:45:52,037 [INFO] Logger initialized.
+2025-01-19 19:48:04,656 [INFO] Logger initialized.
+2025-01-19 19:51:44,169 [INFO] Logger initialized.
+2025-01-19 19:52:11,399 [INFO] Logger initialized.
+2025-01-19 19:54:51,398 [INFO] Logger initialized.
+2025-01-19 19:54:52,874 [INFO] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-01-19 19:54:52,886 [ERROR] GPT-4 evaluation error: Error code: 401 - {'error': {'message': 'Incorrect API key provided: sk-cbced***********************ce19. You can find your API key at https://platform.openai.com/account/api-keys.', 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_api_key'}}
+2025-01-19 20:00:40,935 [INFO] Logger initialized.
+2025-01-19 20:05:11,965 [INFO] Logger initialized.
+2025-01-19 20:07:16,383 [INFO] Logger initialized.
+2025-01-19 20:10:18,608 [INFO] Logger initialized.
+2025-01-19 20:10:19,847 [INFO] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-01-19 20:10:19,848 [ERROR] GPT-4 evaluation error: Error code: 401 - {'error': {'message': 'Incorrect API key provided: sk-cbced***********************ce19. You can find your API key at https://platform.openai.com/account/api-keys.', 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_api_key'}}
+2025-01-19 20:11:51,429 [INFO] Logger initialized.
+2025-01-19 20:11:52,600 [INFO] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-01-19 20:11:52,602 [ERROR] GPT-4 evaluation error: Error code: 401 - {'error': {'message': 'Incorrect API key provided: sk-cbced***********************ce19. You can find your API key at https://platform.openai.com/account/api-keys.', 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_api_key'}}
+2025-01-19 20:13:06,783 [INFO] Logger initialized.
+2025-01-19 20:13:07,967 [INFO] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-01-19 20:13:07,968 [ERROR] GPT-4 evaluation error: Error code: 401 - {'error': {'message': 'Incorrect API key provided: sk-cbced***********************ce19. You can find your API key at https://platform.openai.com/account/api-keys.', 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_api_key'}}
+2025-01-19 20:15:20,833 [INFO] Logger initialized.
+2025-01-19 20:15:22,381 [INFO] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-01-19 20:15:22,383 [ERROR] GPT-4 evaluation error: Error code: 401 - {'error': {'message': 'Incorrect API key provided: sk-cbced***********************ce19. You can find your API key at https://platform.openai.com/account/api-keys.', 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_api_key'}}
+2025-01-19 20:15:37,165 [INFO] Logger initialized.
+2025-01-19 20:15:39,087 [INFO] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-01-19 20:15:39,089 [ERROR] GPT-4 evaluation error: Error code: 401 - {'error': {'message': 'Incorrect API key provided: sk-cbced***********************ce19. You can find your API key at https://platform.openai.com/account/api-keys.', 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_api_key'}}
+2025-01-19 20:24:34,066 [INFO] Logger initialized.
+2025-01-19 20:24:34,752 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-01-19 20:24:36,618 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-01-19 20:24:38,370 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-01-19 20:24:39,885 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-01-19 20:24:41,526 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-01-19 20:24:43,099 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-01-19 20:24:45,328 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-01-19 20:24:47,115 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-01-19 20:24:48,844 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-01-19 20:28:56,626 [INFO] Logger initialized.
+2025-01-19 20:28:57,275 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-01-19 20:28:59,114 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-01-19 20:29:00,576 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-01-19 20:29:02,189 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-01-19 20:29:03,861 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-01-19 20:29:05,706 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-01-19 20:29:07,259 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-01-19 20:29:08,857 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-01-19 20:29:10,406 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-01-19 20:29:13,817 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-01-19 20:29:16,390 [INFO] Results saved to outputs/poetry_results_20250119_202916.json
+2025-01-19 20:42:26,043 [INFO] Logger initialized.
+2025-01-19 20:42:27,686 [INFO] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-01-19 20:42:27,687 [ERROR] GPT-4 evaluation error: Error code: 401 - {'error': {'message': 'Incorrect API key provided: sk-cbced***********************ce19. You can find your API key at https://platform.openai.com/account/api-keys.', 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_api_key'}}
+2025-01-19 20:46:32,918 [INFO] Logger initialized.
+2025-01-19 20:46:34,111 [INFO] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-01-19 20:46:34,112 [ERROR] GPT-4 evaluation error: Error code: 401 - {'error': {'message': 'Incorrect API key provided: sk-cbced***********************ce19. You can find your API key at https://platform.openai.com/account/api-keys.', 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_api_key'}}
+2025-01-19 21:02:54,568 [INFO] Logger initialized.
+2025-01-19 21:02:55,850 [INFO] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-01-19 21:02:55,851 [ERROR] GPT-4 evaluation error: Error code: 401 - {'error': {'message': 'Incorrect API key provided: sk-cbced***********************ce19. You can find your API key at https://platform.openai.com/account/api-keys.', 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_api_key'}}
+2025-01-19 21:06:22,429 [INFO] Logger initialized.
+2025-01-19 21:06:23,614 [INFO] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-01-19 21:06:23,617 [ERROR] GPT-4 evaluation error: Error code: 401 - {'error': {'message': 'Incorrect API key provided: sk-cbced***********************ce19. You can find your API key at https://platform.openai.com/account/api-keys.', 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_api_key'}}
+2025-01-19 21:10:30,601 [INFO] Logger initialized.
+2025-01-19 21:10:31,758 [INFO] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-01-19 21:10:31,760 [ERROR] GPT-4 evaluation error: Error code: 401 - {'error': {'message': 'Incorrect API key provided: sk-cbced***********************ce19. You can find your API key at https://platform.openai.com/account/api-keys.', 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_api_key'}}
+2025-01-19 21:11:32,935 [INFO] Logger initialized.
+2025-01-19 21:11:38,543 [INFO] Retrying request to /chat/completions in 0.424184 seconds
+2025-01-19 21:11:39,643 [INFO] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-01-19 21:11:39,645 [ERROR] GPT-4 evaluation error: Error code: 401 - {'error': {'message': 'Incorrect API key provided: sk-cbced***********************ce19. You can find your API key at https://platform.openai.com/account/api-keys.', 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_api_key'}}

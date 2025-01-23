@@ -7,6 +7,7 @@ from dotenv import load_dotenv, find_dotenv
 import random
 import os
 from typing import List
+import json
 
 _ = load_dotenv(find_dotenv())
     
@@ -212,7 +213,7 @@ class TaskExecutor:
         :return: Initial prompt list
         """
         #print("self.data:",self.data)
-        self.data = self.data[:3]
+        self.data = self.data[:2]
 
         prompts = []
         for data_item in self.data:
@@ -380,10 +381,9 @@ class TaskExecutor:
                     "1. **Artistic Depth**: The response should evoke profound imagery and meaning.\n"
                     "2. **Language Elegance**: The language should be refined and poetic.\n"
                     "3. **Rhythmic Harmony**: The response should maintain tonal and rhyming consistency.\n"
-                    "4. **Creativity and Coherence**: The response should demonstrate originality while seamlessly continuing the opening line.\n\n"
-                    "Please strictly adhere to the following output format:\n"
-                    "{Best Answer: , Explanation: }"
-                )
+                    "4. **Creativity and Coherence**: The response should demonstrate originality while seamlessly continuing the opening line.\n"
+                    "Now please output your answer in json format, with the format as follows: {\"Best Answer\": \"\", \"Explanation\": \"\"}. Please strictly output in JSON format, do not output irrelevant content."
+                    )
             elif self.specific_task == "story":  # Story Creation
                 return (
                     f"Keywords: {question_data['question']}\n"
@@ -393,9 +393,9 @@ class TaskExecutor:
                     "1. **Plot Completeness**: The story should have a clear beginning, middle, and end.\n"
                     "2. **Engagement**: The story should captivate the reader and maintain interest.\n"
                     "3. **Vivid Language**: The language should be descriptive and bring the story to life.\n\n"
-                    "Please strictly adhere to the following output format:\n"
-                    "{Best Answer: , Explanation: }"
-                )
+                    "Output in JSON format with the keys 'Best Answer' and 'Explanation'. For example:\n"
+                    "{\n  \"Best Answer\": \"<The selected best response (text only)>\",\n  \"Explanation\": \"<A concise and clear explanation in one paragraph>\"\n}"              
+                    )
 
         elif self.task_type == "complex_task":
             if self.specific_task == "nli":  #  NLI
@@ -406,8 +406,13 @@ class TaskExecutor:
                     + "\n\nPlease evaluate the responses based on the following criteria:\n"
                     "1. **Accuracy**: The response must correctly reflect the relationship between the premise and the hypothesis.\n"
                     "2. **Logical Consistency**: The reasoning must be logically sound and free of contradictions.\n\n"
-                    "Please strictly adhere to the following output format:\n"
-                    "{Best Answer: , Explanation: }"
+                    "Your output must be a valid JSON object with the following structure and does not contain any additional text or explanations outside the JSON structure:\n"
+                    "Please strictly adhere to the following JSON output format:\n"
+                    '{\n'
+                    '  "Best Answer": "<The selected best response (text only)>",\n'
+                    '  "Explanation": "<A concise and clear explanation in one paragraph>"\n'
+                    '}\n\n'
+                    "Important: Ensure the JSON output is valid, compact, and easy to parse. Do not include extra line breaks, indentation, or additional commentary outside the JSON."
                 )
             elif self.specific_task == "math":  # Mathematical Reasoning
                 return (
@@ -417,8 +422,13 @@ class TaskExecutor:
                     + "\n\nPlease evaluate the responses based on the following criteria:\n"
                     "1. **Accuracy**: The solution must be mathematically correct.\n"
                     "2. **Completeness**: The solution must include all necessary steps and provide a full explanation.\n\n"
-                    "Please strictly adhere to the following output format:\n"
-                    "{Best Answer: , Explanation: }"
+                    "Your output must be a valid JSON object with the following structure and does not contain any additional text or explanations outside the JSON structure:\n"
+                    "Please strictly adhere to the following JSON output format:\n"
+                    '{\n'
+                    '  "Best Answer": "<The selected best response (text only)>",\n'
+                    '  "Explanation": "<A concise and clear explanation in one paragraph>"\n'
+                    '}\n\n'
+                    "Important: Ensure the JSON output is valid, compact, and easy to parse. Do not include extra line breaks, indentation, or additional commentary outside the JSON."
                 )
 
         raise ValueError(f"Unsupported task type: {self.specific_task}")
