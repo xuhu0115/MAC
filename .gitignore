@@ -8,14 +8,14 @@ experiment.log
 # 忽略目录（包括目录下的所有内容）
 /data/NLI
 /Paper
-/outputs
+# /outputs
 
 # 忽略特定扩展名的文件
 # *.tmp
 # *.bak
 
 # 忽略某个文件夹下的特定文件
-# /logs/*.log
+/outputs/*.json
 
 # 不忽略某个特定文件（即使其他规则忽略了它）
 # !/logs/important.log

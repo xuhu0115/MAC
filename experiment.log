@@ -3764,3 +3764,226 @@
 2025-02-04 11:37:40,936 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
 2025-02-04 11:38:41,366 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
 2025-02-04 11:39:10,951 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:08:16,882 [INFO] Logger initialized.
+2025-02-04 21:08:17,669 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:08:26,267 [ERROR] Attempt 1 failed, retrying...: No JSON code block found
+2025-02-04 21:08:26,685 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:08:36,055 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:08:46,704 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:08:56,830 [ERROR] Attempt 1 failed, retrying...: No JSON code block found
+2025-02-04 21:08:57,262 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:09:06,926 [ERROR] Attempt 2 failed, retrying...: No JSON code block found
+2025-02-04 21:09:07,344 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:09:16,855 [ERROR] Attempt 3 failed, retrying...: No JSON code block found
+2025-02-04 21:09:17,341 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:09:27,869 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:10:27,868 [ERROR] Attempt 1 failed, retrying...: expected string or bytes-like object
+2025-02-04 21:10:28,269 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:11:28,272 [ERROR] Attempt 2 failed, retrying...: expected string or bytes-like object
+2025-02-04 21:11:28,702 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:11:50,755 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:12:50,802 [ERROR] Attempt 1 failed, retrying...: expected string or bytes-like object
+2025-02-04 21:12:51,276 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:13:51,278 [ERROR] Attempt 2 failed, retrying...: expected string or bytes-like object
+2025-02-04 21:13:51,737 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:14:51,736 [ERROR] Attempt 3 failed, retrying...: expected string or bytes-like object
+2025-02-04 21:14:52,181 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:15:11,648 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:16:11,778 [ERROR] Attempt 1 failed, retrying...: expected string or bytes-like object
+2025-02-04 21:16:12,247 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:17:12,249 [ERROR] Attempt 2 failed, retrying...: expected string or bytes-like object
+2025-02-04 21:17:12,730 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:18:18,452 [ERROR] Attempt 3 failed, retrying...: No JSON code block found
+2025-02-04 21:18:18,902 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:19:18,898 [ERROR] Attempt 4 failed, retrying...: expected string or bytes-like object
+2025-02-04 21:19:19,356 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:20:19,361 [ERROR] Deepseek evaluation error after 5 attempts: expected string or bytes-like object
+2025-02-04 21:20:19,845 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:21:04,835 [ERROR] Attempt 1 failed, retrying...: No JSON code block found
+2025-02-04 21:21:05,319 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:22:05,324 [ERROR] Attempt 2 failed, retrying...: expected string or bytes-like object
+2025-02-04 21:22:05,798 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:23:05,801 [ERROR] Attempt 3 failed, retrying...: expected string or bytes-like object
+2025-02-04 21:23:06,268 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:24:06,270 [ERROR] Attempt 4 failed, retrying...: expected string or bytes-like object
+2025-02-04 21:24:06,753 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:25:05,354 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:26:05,373 [ERROR] Attempt 1 failed, retrying...: expected string or bytes-like object
+2025-02-04 21:26:05,805 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:27:05,841 [ERROR] Attempt 2 failed, retrying...: expected string or bytes-like object
+2025-02-04 21:27:06,575 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:28:06,352 [ERROR] Attempt 3 failed, retrying...: expected string or bytes-like object
+2025-02-04 21:28:06,813 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:28:45,046 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:29:45,051 [ERROR] Attempt 1 failed, retrying...: expected string or bytes-like object
+2025-02-04 21:29:45,491 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:30:30,728 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:31:30,730 [ERROR] Attempt 1 failed, retrying...: expected string or bytes-like object
+2025-02-04 21:31:31,278 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:32:31,286 [ERROR] Attempt 2 failed, retrying...: expected string or bytes-like object
+2025-02-04 21:32:31,723 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:33:31,725 [ERROR] Attempt 3 failed, retrying...: expected string or bytes-like object
+2025-02-04 21:33:32,266 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:34:32,278 [ERROR] Attempt 4 failed, retrying...: expected string or bytes-like object
+2025-02-04 21:34:32,711 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:35:32,711 [ERROR] Deepseek evaluation error after 5 attempts: expected string or bytes-like object
+2025-02-04 21:35:33,222 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:35:59,932 [ERROR] Attempt 1 failed, retrying...: No JSON code block found
+2025-02-04 21:36:00,420 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:37:00,421 [ERROR] Attempt 2 failed, retrying...: expected string or bytes-like object
+2025-02-04 21:37:00,867 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:38:00,869 [ERROR] Attempt 3 failed, retrying...: expected string or bytes-like object
+2025-02-04 21:38:01,347 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:39:01,439 [ERROR] Attempt 4 failed, retrying...: expected string or bytes-like object
+2025-02-04 21:39:01,937 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:40:01,981 [ERROR] Deepseek evaluation error after 5 attempts: expected string or bytes-like object
+2025-02-04 21:40:02,475 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:41:02,475 [ERROR] Attempt 1 failed, retrying...: expected string or bytes-like object
+2025-02-04 21:41:02,964 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:41:14,579 [ERROR] Attempt 2 failed, retrying...: No JSON code block found
+2025-02-04 21:41:15,029 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:42:15,029 [ERROR] Attempt 3 failed, retrying...: expected string or bytes-like object
+2025-02-04 21:42:15,522 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:42:31,453 [ERROR] Attempt 4 failed, retrying...: No JSON code block found
+2025-02-04 21:42:31,933 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:43:31,973 [ERROR] Deepseek evaluation error after 5 attempts: expected string or bytes-like object
+2025-02-04 21:43:32,460 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:44:32,482 [ERROR] Attempt 1 failed, retrying...: expected string or bytes-like object
+2025-02-04 21:44:33,025 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:45:33,024 [ERROR] Attempt 2 failed, retrying...: expected string or bytes-like object
+2025-02-04 21:45:33,540 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:46:33,540 [ERROR] Attempt 3 failed, retrying...: expected string or bytes-like object
+2025-02-04 21:46:33,997 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:46:54,950 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:47:54,955 [ERROR] Attempt 1 failed, retrying...: expected string or bytes-like object
+2025-02-04 21:47:55,532 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:48:55,531 [ERROR] Attempt 2 failed, retrying...: expected string or bytes-like object
+2025-02-04 21:48:55,987 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:49:55,985 [ERROR] Attempt 3 failed, retrying...: expected string or bytes-like object
+2025-02-04 21:49:56,463 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:50:53,821 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:51:53,840 [ERROR] Attempt 1 failed, retrying...: expected string or bytes-like object
+2025-02-04 21:51:54,359 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:52:54,358 [ERROR] Attempt 2 failed, retrying...: expected string or bytes-like object
+2025-02-04 21:52:54,838 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:53:48,077 [ERROR] Attempt 3 failed, retrying...: No JSON code block found
+2025-02-04 21:53:48,569 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:54:48,691 [ERROR] Attempt 4 failed, retrying...: expected string or bytes-like object
+2025-02-04 21:54:49,433 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:55:49,433 [ERROR] Deepseek evaluation error after 5 attempts: expected string or bytes-like object
+2025-02-04 21:55:50,225 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:56:50,224 [ERROR] Attempt 1 failed, retrying...: expected string or bytes-like object
+2025-02-04 21:56:50,675 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:57:50,676 [ERROR] Attempt 2 failed, retrying...: expected string or bytes-like object
+2025-02-04 21:57:51,105 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:58:51,109 [ERROR] Attempt 3 failed, retrying...: expected string or bytes-like object
+2025-02-04 21:58:51,581 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 21:59:56,605 [ERROR] Attempt 4 failed, retrying...: No JSON code block found
+2025-02-04 21:59:57,089 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 22:00:57,088 [ERROR] Deepseek evaluation error after 5 attempts: expected string or bytes-like object
+2025-02-04 22:00:57,578 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 22:01:57,577 [ERROR] Attempt 1 failed, retrying...: expected string or bytes-like object
+2025-02-04 22:01:58,180 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 22:02:58,233 [ERROR] Attempt 2 failed, retrying...: expected string or bytes-like object
+2025-02-04 22:02:58,669 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 22:03:58,676 [ERROR] Attempt 3 failed, retrying...: expected string or bytes-like object
+2025-02-04 22:03:59,229 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 22:04:15,912 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 22:05:15,932 [ERROR] Attempt 1 failed, retrying...: expected string or bytes-like object
+2025-02-04 22:05:16,420 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 22:06:16,414 [ERROR] Attempt 2 failed, retrying...: expected string or bytes-like object
+2025-02-04 22:06:16,880 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 22:07:16,882 [ERROR] Attempt 3 failed, retrying...: expected string or bytes-like object
+2025-02-04 22:07:17,339 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 22:07:29,494 [ERROR] Attempt 4 failed, retrying...: No JSON code block found
+2025-02-04 22:07:29,900 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 22:08:29,902 [ERROR] Deepseek evaluation error after 5 attempts: expected string or bytes-like object
+2025-02-04 22:08:30,374 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 22:09:30,344 [ERROR] Attempt 1 failed, retrying...: expected string or bytes-like object
+2025-02-04 22:09:30,787 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 22:10:30,791 [ERROR] Attempt 2 failed, retrying...: expected string or bytes-like object
+2025-02-04 22:10:31,195 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 22:11:31,197 [ERROR] Attempt 3 failed, retrying...: expected string or bytes-like object
+2025-02-04 22:11:31,668 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 22:12:31,673 [ERROR] Attempt 4 failed, retrying...: expected string or bytes-like object
+2025-02-04 22:12:32,345 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 22:12:44,616 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 22:13:44,573 [ERROR] Attempt 1 failed, retrying...: expected string or bytes-like object
+2025-02-04 22:13:44,986 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 22:14:44,984 [ERROR] Attempt 2 failed, retrying...: expected string or bytes-like object
+2025-02-04 22:14:45,831 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 22:15:14,412 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 22:16:14,522 [ERROR] Attempt 1 failed, retrying...: expected string or bytes-like object
+2025-02-04 22:16:15,375 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 22:17:15,236 [ERROR] Attempt 2 failed, retrying...: expected string or bytes-like object
+2025-02-04 22:17:15,686 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 22:18:07,431 [ERROR] Attempt 3 failed, retrying...: No JSON code block found
+2025-02-04 22:18:08,006 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 22:19:08,009 [ERROR] Attempt 4 failed, retrying...: expected string or bytes-like object
+2025-02-04 22:19:08,441 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 22:20:08,449 [ERROR] Deepseek evaluation error after 5 attempts: expected string or bytes-like object
+2025-02-04 22:20:08,973 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 22:21:08,971 [ERROR] Attempt 1 failed, retrying...: expected string or bytes-like object
+2025-02-04 22:21:09,603 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 22:21:52,656 [ERROR] Attempt 2 failed, retrying...: No JSON code block found
+2025-02-04 22:21:53,107 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 22:22:53,107 [ERROR] Attempt 3 failed, retrying...: expected string or bytes-like object
+2025-02-04 22:22:53,547 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 22:23:53,550 [ERROR] Attempt 4 failed, retrying...: expected string or bytes-like object
+2025-02-04 22:23:54,038 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 22:24:54,045 [ERROR] Deepseek evaluation error after 5 attempts: expected string or bytes-like object
+2025-02-04 22:24:54,523 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 22:25:39,001 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 22:26:39,062 [ERROR] Attempt 1 failed, retrying...: expected string or bytes-like object
+2025-02-04 22:26:39,610 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 22:27:39,616 [ERROR] Attempt 2 failed, retrying...: expected string or bytes-like object
+2025-02-04 22:27:40,137 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 22:28:16,455 [ERROR] Attempt 3 failed, retrying...: No JSON code block found
+2025-02-04 22:28:16,923 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 22:29:16,926 [ERROR] Attempt 4 failed, retrying...: expected string or bytes-like object
+2025-02-04 22:29:18,414 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 22:30:18,415 [ERROR] Deepseek evaluation error after 5 attempts: expected string or bytes-like object
+2025-02-04 22:30:18,894 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 22:31:18,897 [ERROR] Attempt 1 failed, retrying...: expected string or bytes-like object
+2025-02-04 22:31:19,346 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 22:32:19,352 [ERROR] Attempt 2 failed, retrying...: expected string or bytes-like object
+2025-02-04 22:32:20,902 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 22:33:10,426 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 22:34:10,512 [ERROR] Attempt 1 failed, retrying...: expected string or bytes-like object
+2025-02-04 22:34:10,967 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 22:35:11,129 [ERROR] Attempt 2 failed, retrying...: expected string or bytes-like object
+2025-02-04 22:35:11,597 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 22:35:39,979 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 22:36:39,979 [ERROR] Attempt 1 failed, retrying...: expected string or bytes-like object
+2025-02-04 22:36:40,414 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 22:37:40,417 [ERROR] Attempt 2 failed, retrying...: expected string or bytes-like object
+2025-02-04 22:37:40,867 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 22:38:40,867 [ERROR] Attempt 3 failed, retrying...: expected string or bytes-like object
+2025-02-04 22:38:41,320 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 22:39:44,201 [ERROR] Attempt 4 failed, retrying...: No JSON code block found
+2025-02-04 22:39:44,698 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 22:40:44,698 [ERROR] Deepseek evaluation error after 5 attempts: expected string or bytes-like object
+2025-02-04 22:40:45,185 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 22:41:45,185 [ERROR] Attempt 1 failed, retrying...: expected string or bytes-like object
+2025-02-04 22:41:45,639 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 22:42:45,675 [ERROR] Attempt 2 failed, retrying...: expected string or bytes-like object
+2025-02-04 22:42:50,838 [INFO] Retrying request to /chat/completions in 0.394060 seconds
+2025-02-04 22:42:51,500 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 22:43:51,502 [ERROR] Attempt 3 failed, retrying...: expected string or bytes-like object
+2025-02-04 22:43:51,970 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 22:44:15,413 [ERROR] Attempt 4 failed, retrying...: No JSON code block found
+2025-02-04 22:44:15,861 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 22:45:15,854 [ERROR] Deepseek evaluation error after 5 attempts: expected string or bytes-like object
+2025-02-04 22:45:16,283 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 22:46:16,320 [ERROR] Attempt 1 failed, retrying...: expected string or bytes-like object
+2025-02-04 22:46:16,863 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 22:47:05,020 [ERROR] Attempt 2 failed, retrying...: No JSON code block found
+2025-02-04 22:47:05,507 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 22:48:05,514 [ERROR] Attempt 3 failed, retrying...: expected string or bytes-like object
+2025-02-04 22:48:06,021 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 22:49:06,015 [ERROR] Attempt 4 failed, retrying...: expected string or bytes-like object
+2025-02-04 22:49:06,455 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 22:50:06,542 [ERROR] Deepseek evaluation error after 5 attempts: expected string or bytes-like object
+2025-02-04 22:50:07,013 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-02-04 22:50:34,549 [ERROR] Attempt 1 failed, retrying...: No JSON code block found
+2025-02-04 22:50:35,007 [INFO] HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
