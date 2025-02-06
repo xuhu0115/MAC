@@ -22,7 +22,6 @@ from pathlib import Path
 import pypinyin
 import logging
 import numpy as np
-from llm import LLM
 
 # Load environment variables from local/project configuration.
 _ = load_dotenv(find_dotenv())
@@ -43,7 +42,7 @@ class LLM:
         self.model_type = model_type
         self.api_keys = api_keys
 
-    def generate(self, prompt, max_tokens=100, temperature=0.7):
+    def generate(self, prompt, max_tokens=1024, temperature=0.7):
         """
         Generate a response based on the model type.
         :param prompt: Input prompt
@@ -77,26 +76,53 @@ class LLM:
             print(f"Error generating response from Deepseek: {e}")
             return None
 
+    # def _generate_deepseek(self, prompt, max_tokens, temperature):
+    #     """
+    #     Call the DeepSeek API.
+    #     """
+    #     try:
+    #         client = OpenAI(api_key=self.api_keys, base_url="https://api.deepseek.com")
+    #         response = client.chat.completions.create(
+    #         model = "deepseek-chat", #engine=self.llm_params.get("model", "text-davinci-003") 是 Python 中的一种常见用法，它的作用是从字典 self.llm_params 中获取键 "model" 对应的值。如果 "model" 这个键不存在，则使用默认值 "text-davinci-003"。
+    #         messages=[
+    #             {"role": "system", "content": "You are a helpful assistant"},
+    #             {"role": "user", "content": prompt},
+    #         ],
+    #         max_tokens = max_tokens,
+    #         temperature = temperature,
+    #         stream=False
+    #     )
+    #         return response.choices[0].message.content
+    #     except Exception as e:
+    #         print(f"Error generating response from DeepSeek: {e}")
+    #         return None
+
     def _generate_deepseek(self, prompt, max_tokens, temperature):
         """
         Call the DeepSeek API.
+        max_tokens: default:512, Required range: 1 < x < 8192
+        temperature: default: 0.7
+        top_k: default:50
         """
         try:
-            client = OpenAI(api_key=self.api_keys, base_url="https://api.deepseek.com")
+            client = OpenAI(api_key="sk-gwompcsazrqpbcbwhsbwzwojdtzjuftaehxefbglzpawfmmg", base_url="https://api.siliconflow.cn/v1")
             response = client.chat.completions.create(
-            model = "deepseek-chat", #engine=self.llm_params.get("model", "text-davinci-003") 是 Python 中的一种常见用法，它的作用是从字典 self.llm_params 中获取键 "model" 对应的值。如果 "model" 这个键不存在，则使用默认值 "text-davinci-003"。
-            messages=[
-                {"role": "system", "content": "You are a helpful assistant"},
-                {"role": "user", "content": prompt},
-            ],
-            max_tokens = max_tokens,
-            temperature = temperature,
-            stream=False
-        )
+                model='deepseek-ai/DeepSeek-V3',
+                messages=[
+                    {'role': 'user', 
+                    'content': prompt}
+                ],
+                max_tokens = max_tokens,
+                temperature = temperature,
+                stream=False
+            )
+            # for chunk in response:
+            #     print(chunk.choices[0].delta.content, end='')
             return response.choices[0].message.content
         except Exception as e:
             print(f"Error generating response from DeepSeek: {e}")
             return None
+        
 
     def _generate_qwen(self, prompt, max_tokens, temperature):
         """
@@ -123,14 +149,19 @@ def _generate_prompt(data_item, task_type, specific_task):
     if task_type == "open_task":
         if specific_task == "poetry":  # Poetry Generation
             return (
-                "You are a highly talented Chinese ancient poet, renowned for composing exquisite Chinese poetry. I will provide the opening line of a poem, and your task is to craft the next line based on its artistic conception, rhythm, and style, creating a harmonious and beautiful continuation."
-                "\n\nPlease adhere to the following requirements:\n"
-                "1. **Originality**: Your line must be entirely original, not borrowed from any existing poetry.\n"
-                "2. **Rhythmic Consistency**: Ensure the tonal pattern and rhyme scheme align perfectly with the previous line.\n"
-                "3. **Artistic Continuity**: Your line should seamlessly extend the meaning, atmosphere, and imagery of the given line, evoking a sense of beauty in nature, emotion, or philosophy.\n"
-                "4. **Elegance in Language**: Employ refined and elegant diction that reflects the style and artistry of classical Chinese poetry.\n"
-                "5. **Strict Output Format**: Only output a single poetic line, without any additional explanations or context.\n\n"
-                f"**Opening Line:** {data_item}\n**Next Line:**"
+f"""
+You are a highly talented Chinese ancient poet, renowned for composing exquisite Chinese poetry. I will provide the opening line of a poem, and your task is to craft the next line based on its artistic conception, rhythm, and style, creating a harmonious and beautiful continuation.
+    
+Please adhere to the following requirements:
+1. **Originality**: Your line must be entirely original, not borrowed from any existing poetry.
+2. **Rhythmic Consistency**: Ensure the tonal pattern and rhyme scheme align perfectly with the previous line.
+3. **Artistic Continuity**: Your line should seamlessly extend the meaning, atmosphere, and imagery of the given line, evoking a sense of beauty in nature, emotion, or philosophy.
+4. **Elegance in Language**: Employ refined and elegant diction that reflects the style and artistry of classical Chinese poetry.
+5. **Strict Output Format**: Only output a single poetic line, without any additional explanations or context.
+
+**Opening Line:** {data_item}
+**Next Line:**
+"""
             )
         elif specific_task == "story":  # Story Generation
             return (
@@ -182,7 +213,7 @@ def _prepare_initial_prompts(data, task_type, specific_task):
     :return: Initial prompt list
     """
     #print("self.data:",self.data)
-    # data = data[:2]
+    #data = data[:3]
 
     prompts = []
     for data_item in data:
@@ -191,6 +222,7 @@ def _prepare_initial_prompts(data, task_type, specific_task):
                 data_item,
                 _generate_prompt(data_item, task_type, specific_task)
             ))
+            # print("prompts:",prompts)
         elif specific_task == "story":
             prompts.append((
                 data_item,
@@ -211,7 +243,7 @@ def _prepare_initial_prompts(data, task_type, specific_task):
     
     return prompts
 
-def _run_round(inputs, agent):
+def _run_round(inputs, agent, max_tokens=1024, temperature=0.7):
     """
     Execute one round of the task.
     :param inputs: Inputs for the current round
@@ -224,7 +256,8 @@ def _run_round(inputs, agent):
         # print("prompt:", prompt)
         # print("original_question:", original_question)
         # Each agent generates outputs
-        output = agent.generate(prompt)
+        output = agent.generate(prompt, max_tokens, temperature)
+        #print("output:",output)
 
         question_results.append({
             "question": original_question,  # The first half of the original input
@@ -378,12 +411,12 @@ class Evaluator:
                     
         accuracy = correct / total
         return {"accuracy": accuracy}
-    def multi_response(self, prompt, max_attempts=5):
+    def multi_response(self, prompt, max_attempts=5, max_tokens=1024, temperature=0.7):
         attempt = 0
 
         while attempt < max_attempts:
             try:
-                response = self.llm.generate(prompt)
+                response = self.llm.generate(prompt, max_tokens, temperature)
                 return self.parse_json_from_markdown(response)
             except Exception as e:
                 attempt += 1
@@ -419,7 +452,7 @@ class Evaluator:
         Thank you for your professional judgment and cooperation.
         """
         
-        response = self.multi_response(prompt, max_attempts=5)
+        response = self.multi_response(prompt, max_attempts=5, max_tokens=1024, temperature=0.7)
         return response
 
     def _evaluate_rhythm(self, text: str) -> float:
@@ -486,7 +519,7 @@ class Evaluator:
 
         Thank you for your professional judgment and cooperation."""
 
-        response = self.multi_response(prompt, max_attempts=5)
+        response = self.multi_response(prompt, max_attempts=5, max_tokens=1024, temperature=0.7)
         return response
 
     def _evaluate_emotion_llm(self, input_text: str, output_text: str):
@@ -512,7 +545,7 @@ class Evaluator:
 
         Thank you for your professional judgment and cooperation."""
 
-        response = self.multi_response(prompt, max_attempts=5)
+        response = self.multi_response(prompt, max_attempts=5, max_tokens=1024, temperature=0.7)
         return response
     
     # def clean_json_string(self, json_string):
@@ -547,34 +580,34 @@ if __name__ == "__main__":
     api_keys = os.environ.get("DEEPSEEK_API_KEY")
 
     # ------------------------------------------------------
-    # data = DataLoader.load_data(data_path, specific_task)
+    data = DataLoader.load_data(data_path, specific_task)
 
-    # agent = LLM(model_type, api_keys)
-    # inputs = _prepare_initial_prompts(data, task_type, specific_task)
-    # #print("inputs:", inputs)
-    # question_results = _run_round(inputs, agent)
+    agent = LLM(model_type = model_type, api_keys = api_keys)
+    inputs = _prepare_initial_prompts(data, task_type, specific_task)
+    #print("inputs:", inputs)
+    question_results = _run_round(inputs, agent, max_tokens=1024, temperature=1.5)  #poetry/story:1.5; NLI/math:0.0
 
-    # #print("question_results:", question_results)
-    # # 定义CSV文件名
+    # print("question_results:", question_results)
+    # 定义CSV文件名
     filename = 'outputs/exp1_no-mbti-mac.csv'
-    # # 将数据转换为 DataFrame
-    # df = pd.DataFrame(question_results)
-    # # 写入 CSV 文件
-    # df.to_csv(filename, index=False)
-    # print(f"Data has been written to {filename}")
+    # 将数据转换为 DataFrame
+    df = pd.DataFrame(question_results)
+    # 写入 CSV 文件
+    df.to_csv(filename, index=False)
+    print(f"Data has been written to {filename}")
 
     # ------------------------------------------------------
-    question_results = pd.read_csv(filename)
-    # 将 DataFrame 转换为字典列表，恢复 question_results 变量
-    question_results = question_results.to_dict(orient='records')
-    #print("question_results:", question_results)
-    evaluator = Evaluator(task_type, specific_task, api_keys, model_type)
-    evaluation_results = evaluator.evaluate(question_results)
+    # question_results = pd.read_csv(filename)
+    # # 将 DataFrame 转换为字典列表，恢复 question_results 变量
+    # question_results = question_results.to_dict(orient='records')
+    # #print("question_results:", question_results)
+    # evaluator = Evaluator(task_type, specific_task, api_keys, model_type)
+    # evaluation_results = evaluator.evaluate(question_results)
 
-    df = pd.DataFrame(evaluation_results)
-    # 写入 CSV 文件
-    df.to_csv('outputs/exp1_eva_no-mbti-mac.csv', index=False)
-    print(f"Data has been written to outputs/exp1_eva_no-mbti-mac.csv")
+    # df = pd.DataFrame(evaluation_results)
+    # # 写入 CSV 文件
+    # df.to_csv('outputs/exp1_eva_no-mbti-mac.csv', index=False)
+    # print(f"Data has been written to outputs/exp1_eva_no-mbti-mac.csv")
     
     
     

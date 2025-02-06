@@ -5,6 +5,7 @@
 .env
 experiment.log
 
+
 # 忽略目录（包括目录下的所有内容）
 /data/NLI
 /Paper
@@ -16,6 +17,6 @@ experiment.log
 
 # 忽略某个文件夹下的特定文件
 /outputs/*.json
-
+/code/test.ipynb
 # 不忽略某个特定文件（即使其他规则忽略了它）
 # !/logs/important.log
