@@ -38,7 +38,7 @@ openai.api_key = os.environ.get("OPENAI_API_KEY")
 deep_seek_api_key = os.environ.get("DEEPSEEK_API_KEY")
 
 class LLM:
-    def __init__(self, model_type, api_keys):
+    def __init__(self, model_type, api_keys, model):
         """
         Initialize the agent.
         :param personality: MBTI personality type
@@ -48,6 +48,7 @@ class LLM:
         
         self.model_type = model_type
         self.api_keys = api_keys
+        self.model = model
 
     def generate(self, prompt, max_tokens=1024, temperature=0.7, response_format="text"):
         """
@@ -83,56 +84,23 @@ class LLM:
             print(f"Error generating response from Deepseek: {e}")
             return None
 
-    def _generate_deepseek(self, prompt, max_tokens, temperature, response_format:str="text"):
-        """
-        Call the DeepSeek API.
-        """
-        try:
-            client = OpenAI(api_key=self.api_keys, base_url="https://api.deepseek.com")
-            response = client.chat.completions.create(
-            model = "deepseek-chat", #engine=self.llm_params.get("model", "text-davinci-003") 是 Python 中的一种常见用法，它的作用是从字典 self.llm_params 中获取键 "model" 对应的值。如果 "model" 这个键不存在，则使用默认值 "text-davinci-003"。
-            messages=[
-                {"role": "system", "content": "You are a helpful assistant"},
-                {"role": "user", "content": prompt},
-            ],
-            response_format={"type": response_format},
-            max_tokens = max_tokens,
-            temperature = temperature,
-            stream=False
-        )
-            return response.choices[0].message.content
-        except Exception as e:
-            if "429" in str(e):  # 检测速率限制错误
-                print(f"Rate limit reached. Retrying in 10 seconds...")
-                time.sleep(10)  # 等待 10 秒后重试
-                return self._generate_deepseek(prompt, max_tokens, temperature, response_format)
-            else:
-                print(f"Error generating response from DeepSeek: {repr(e)}")  # 使用 repr 确保正确显示非 ASCII 字符
-                return None
-
     # def _generate_deepseek(self, prompt, max_tokens, temperature, response_format:str="text"):
     #     """
     #     Call the DeepSeek API.
-    #     max_tokens: default:512, Required range: 1 < x < 8192
-    #     temperature: default: 0.7
-    #     top_k: default:50
-    #     response_format: Possible values: [text, json_object]
     #     """
     #     try:
-    #         client = OpenAI(api_key=self.api_keys, base_url="https://api.siliconflow.cn/v1")
+    #         client = OpenAI(api_key=self.api_keys, base_url="https://api.deepseek.com")
     #         response = client.chat.completions.create(
-    #             model='deepseek-ai/DeepSeek-V3',
-    #             messages=[
-    #                 {'role': 'user', 
-    #                 'content': prompt}
-    #             ],
-    #             response_format={"type": response_format},
-    #             max_tokens = max_tokens,
-    #             temperature = temperature,
-    #             stream=False
-    #         )
-    #         # for chunk in response:
-    #         #     print(chunk.choices[0].delta.content, end='')
+    #         model = self.model,   # "deepseek-chat"
+    #         messages=[
+    #             {"role": "system", "content": "You are a helpful assistant"},
+    #             {"role": "user", "content": prompt},
+    #         ],
+    #         response_format={"type": response_format},
+    #         max_tokens = max_tokens,
+    #         temperature = temperature,
+    #         stream=False
+    #     )
     #         return response.choices[0].message.content
     #     except Exception as e:
     #         if "429" in str(e):  # 检测速率限制错误
@@ -140,8 +108,41 @@ class LLM:
     #             time.sleep(10)  # 等待 10 秒后重试
     #             return self._generate_deepseek(prompt, max_tokens, temperature, response_format)
     #         else:
-    #             print(f"Error generating response from DeepSeek: {e}")  # 确保在 except 块内引用 e
+    #             print(f"Error generating response from DeepSeek: {repr(e)}")  # 使用 repr 确保正确显示非 ASCII 字符
     #             return None
+
+    def _generate_deepseek(self, prompt, max_tokens, temperature, response_format:str="text"):
+        """
+        Call the DeepSeek API.
+        max_tokens: default:512, Required range: 1 < x < 8192
+        temperature: default: 0.7
+        top_k: default:50
+        response_format: Possible values: [text, json_object]
+        """
+        try:
+            client = OpenAI(api_key=self.api_keys, base_url="https://api.siliconflow.cn/v1")
+            response = client.chat.completions.create(
+                model='self.model',   ,   # "deepseek-ai/DeepSeek-V3"
+                messages=[
+                    {'role': 'user', 
+                    'content': prompt}
+                ],
+                response_format={"type": response_format},
+                max_tokens = max_tokens,
+                temperature = temperature,
+                stream=False
+            )
+            # for chunk in response:
+            #     print(chunk.choices[0].delta.content, end='')
+            return response.choices[0].message.content
+        except Exception as e:
+            if "429" in str(e):  # 检测速率限制错误
+                print(f"Rate limit reached. Retrying in 10 seconds...")
+                time.sleep(10)  # 等待 10 秒后重试
+                return self._generate_deepseek(prompt, max_tokens, temperature, response_format)
+            else:
+                print(f"Error generating response from DeepSeek: {e}")  # 确保在 except 块内引用 e
+                return None
         
 
     def _generate_qwen(self, prompt, max_tokens, temperature):
@@ -283,7 +284,7 @@ def _run_round(inputs, agent, max_tokens=1024, temperature=0.7, response_format=
     return question_results
 
 class Evaluator:
-    def __init__(self, task_type: str, specific_task: str, api_key: str, model_type: str):
+    def __init__(self, task_type: str, specific_task: str, api_key: str, model_type: str, model: str):
         """
         初始化评测器
         :param task_type: 任务类型 (open_task/complex_task)
@@ -294,7 +295,8 @@ class Evaluator:
         self.specific_task = specific_task
         self.api_key = api_key
         self.model_type = model_type
-        self.llm = LLM(self.model_type, self.api_key)
+        self.model = model
+        self.llm = LLM(self.model_type, self.api_key, self.model)
         
         # 创建结果保存目录
         self.results_dir = Path("evaluation_results")
@@ -617,12 +619,13 @@ if __name__ == "__main__":
 
     # ------------------------------------------------------
     filename = 'outputs/exp1_no-mbti-mac.csv'
+    model = "deepseek-ai/DeepSeek-R1"    #deepseek-chat 模型已经升级为 DeepSeek-V3；deepseek-reasoner 模型为新模型 DeepSeek-R1
     question_results = pd.read_csv(filename)
     # question_results = question_results[:1]
     # 将 DataFrame 转换为字典列表，恢复 question_results 变量
     question_results = question_results.to_dict(orient='records')
     #print("question_results:", question_results)
-    evaluator = Evaluator(task_type, specific_task, api_keys, model_type)
+    evaluator = Evaluator(task_type, specific_task, api_keys, model_type, model)
     evaluation_results = evaluator.evaluate(question_results)
 
     df = pd.DataFrame(evaluation_results)
