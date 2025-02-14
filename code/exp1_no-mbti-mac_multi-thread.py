@@ -122,7 +122,7 @@ class LLM:
         try:
             client = OpenAI(api_key=self.api_keys, base_url="https://api.siliconflow.cn/v1")
             response = client.chat.completions.create(
-                model='self.model',   ,   # "deepseek-ai/DeepSeek-V3"
+                model = self.model,   # "deepseek-ai/DeepSeek-V3"
                 messages=[
                     {'role': 'user', 
                     'content': prompt}
@@ -348,26 +348,55 @@ class Evaluator:
         #inputs, outputs = self.extract_inputs_outputs(results)
         # print("inputs:",inputs)
         # print("outputs:",outputs)
+        
 
         for result in results:
+            prompt = f"""
+            You are an AI reviewer with expertise in Chinese classical poetry. Your task is to evaluate poetic sentences generated in a continuation task. 
+            Based on the given first half of a poem: "{result['question']}" , and the generated second half: "{result['output']}", you will assign scores (range: 0-1.00, rounded to two decimal places) across multiple dimensions and provide detailed feedback for each dimension. The final output should be in **JSON format**.
+
+            ### **Evaluation Dimensions**:
+            1. **Semantic Coherence**  
+            - Does the second half maintain semantic coherence with the first half? Is the expression complete, and does the language flow naturally?
+
+            2. **Rhythm and Harmony**  
+            - Is the rhythm of the second half harmonious and smooth? Does it create an overall sense of musicality with the first half, considering sound and cadence (without being strictly constrained by traditional tonal and rhyming rules)?
+
+            3. **Imagery and Aesthetic Appeal**  
+            - Does the second half exhibit beautiful imagery? Does it evoke a vivid sense of aesthetics and artistic expression?
+
+            4. **Emotional Depth**  
+            - Does the second half deepen the emotional expression? Does it further develop or refine the sentiment introduced in the first half?
+
+            ### **JSON Output Format**:
+            Your results and feedback should be structured as follows:
+
+            ```json
+            {{
+                "semantic_coherence": {{
+                    "score": 0.00,
+                    "comment": "Feedback on semantic coherence"
+                }},
+                "rhythm_and_harmony": {{
+                    "score": 0.00,
+                    "comment": "Feedback on rhythm and harmony"
+                }},
+                "imagery_and_aesthetic": {{
+                    "score": 0.00,
+                    "comment": "Feedback on imagery and aesthetic appeal"
+                }},
+                "emotional_depth": {{
+                    "score": 0.00,
+                    "comment": "Feedback on emotional depth"
+                }}
+            }}
+            """
             # 保存原始输入和输出用于人工验证
             #self._save_for_human_validation(result)
-            
-            scores = {
-                "coherence": self._evaluate_coherence_llm(result['question'], result['output']),
-                "rhythm": self._evaluate_rhythm(result['output']),
-                "elegance": self._evaluate_elegance_llm(result['question'], result['output']),
-                "emotion": self._evaluate_emotion_llm(result['question'], result['output'])
-            }
+            #print("prompt:",prompt)
+            scores = self.multi_response(prompt, max_attempts=5, max_tokens=1024, temperature=0.7, response_format="json_object")
             total_scores.append(scores)
             
-        # # 计算平均分数
-        # avg_scores = {
-        #     metric: np.mean([score[metric] for score in total_scores])
-        #     for metric in ["coherence", "rhythm", "elegance", "emotion"]
-        # }
-        # avg_scores["overall"] = np.mean(list(avg_scores.values()))
-        
         return total_scores
     
     def _evaluate_story(self, results: List[Dict]) -> Dict[str, float]:
@@ -597,31 +626,32 @@ if __name__ == "__main__":
     data_path = "./data/poetry/poetry_sub.json"  # 数据文件路径  "./data/poetry/poetry.json"  "./data/GSM8K/test.jsonl"
     
     # API 密钥
-    api_keys = os.environ.get("DEEPSEEK_API_KEY")
-    #api_keys = os.environ.get("DEEPSEEK_API_KEY_GJLD")
+    #api_keys = os.environ.get("DEEPSEEK_API_KEY")
+    api_keys = os.environ.get("DEEPSEEK_API_KEY_GJLD")
 
     # ------------------------------------------------------
-    # data = DataLoader.load_data(data_path, specific_task)
+    data = DataLoader.load_data(data_path, specific_task)
 
-    # agent = LLM(model_type = model_type, api_keys = api_keys)
-    # inputs = _prepare_initial_prompts(data, task_type, specific_task)
-    # #print("inputs:", inputs)
-    # question_results = _run_round(inputs, agent, max_tokens=1024, temperature=1.5)  #poetry/story:1.5; NLI/math:0.0
+    model = "deepseek-ai/DeepSeek-V2.5" # "deepseek-ai/DeepSeek-R1"\"deepseek-ai/DeepSeek-V3"  #deepseek-chat 模型已经升级为 DeepSeek-V3；deepseek-reasoner 模型为新模型 DeepSeek-R1
+    agent = LLM(model_type = model_type, api_keys = api_keys, model = model)
+    inputs = _prepare_initial_prompts(data, task_type, specific_task)
+    #print("inputs:", inputs)
+    question_results = _run_round(inputs, agent, max_tokens=1024, temperature=1.5)  #poetry/story:1.5; NLI/math:0.0
 
-    # # print("question_results:", question_results)
-    # # 定义CSV文件名
-    # filename = 'outputs/exp1_no-mbti-mac.csv'
-    # # 将数据转换为 DataFrame
-    # df = pd.DataFrame(question_results)
-    # # 写入 CSV 文件
-    # df.to_csv(filename, index=False)
-    # print(f"Data has been written to {filename}")
+    # print("question_results:", question_results)
+    # 定义CSV文件名
+    filename = 'outputs/exp1_no-mbti-mac_poetry_DS-v25.csv'
+    # 将数据转换为 DataFrame
+    df = pd.DataFrame(question_results)
+    # 写入 CSV 文件
+    df.to_csv(filename, index=False)
+    print(f"Data has been written to {filename}")
 
     # ------------------------------------------------------
-    filename = 'outputs/exp1_no-mbti-mac.csv'
-    model = "deepseek-ai/DeepSeek-R1"    #deepseek-chat 模型已经升级为 DeepSeek-V3；deepseek-reasoner 模型为新模型 DeepSeek-R1
+    #filename = 'outputs/exp1_no-mbti-mac_poetryDS-v25.csv'
+    model = "deepseek-ai/DeepSeek-V2.5" # "deepseek-ai/DeepSeek-R1"\"deepseek-ai/DeepSeek-V3"  #deepseek-chat 模型已经升级为 DeepSeek-V3；deepseek-reasoner 模型为新模型 DeepSeek-R1
     question_results = pd.read_csv(filename)
-    # question_results = question_results[:1]
+    #question_results = question_results[:3]
     # 将 DataFrame 转换为字典列表，恢复 question_results 变量
     question_results = question_results.to_dict(orient='records')
     #print("question_results:", question_results)
@@ -630,7 +660,7 @@ if __name__ == "__main__":
 
     df = pd.DataFrame(evaluation_results)
     # 写入 CSV 文件
-    df.to_csv('outputs/exp1_eva_no-mbti-mac.csv', index=False)
+    df.to_csv('outputs/exp1_eva_no-mbti-mac_poetry_DS-v25.csv', index=False)
     print(f"Data has been written to outputs/exp1_eva_no-mbti-mac.csv")
     
     

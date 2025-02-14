@@ -2,6 +2,7 @@
 
 import json
 import logging
+import re
 
 class DataLoader:
     @staticmethod
@@ -89,7 +90,26 @@ class DataLoader:
         :param data: 数据内容
         :return: 解析后的数据列表
         """
-        if isinstance(data, list) and all("question" in item for item in data):
-            return data
-        else:
-            raise ValueError("Invalid data format for math task.")
+        # if isinstance(data, list) and all("question" in item for item in data):
+        #     return data
+        # else:
+        #     raise ValueError("Invalid data format for math task.")
+        samples = []
+        count = 0
+        for i, jsonline in enumerate(data):
+            # sample = json.loads(jsonline)
+            sample = jsonline
+            answer = re.sub(r"[^0-9.]", "",sample["answer"].split("#### ")[1].strip())
+            gold_explanation = re.sub('<<.*>>', '', sample["answer"].split("#### ")[0].replace("\n\n", "\n").strip())
+            gold_explanation_sents = gold_explanation.split("\n")
+            gold_explanation_sents = [gold_explanation_sent + "." if gold_explanation_sent[-1] != "." else gold_explanation_sent for gold_explanation_sent in gold_explanation_sents]
+            gold_explanation = " ".join(gold_explanation_sents)
+            sample_json = {
+                "index": i,
+                "question": sample["question"],
+                "answer": answer,
+                "gold_explanation": gold_explanation
+            }
+            samples.append(sample_json)
+        
+        return samples
